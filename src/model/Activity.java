@@ -6,6 +6,15 @@ public class Activity {
 	String startTimeStamp;
 	String endTimeStamp;
 	List<AccelerometerData> data;
+	String activeStatus;
+	
+	
+	public String getActiveStatus() {
+		return activeStatus;
+	}
+	public void setActiveStatus(String activeStatus) {
+		this.activeStatus = activeStatus;
+	}
 	public String getStartTimeStamp() {
 		return startTimeStamp;
 	}

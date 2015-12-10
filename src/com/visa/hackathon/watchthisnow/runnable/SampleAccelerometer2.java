@@ -18,6 +18,10 @@ public class SampleAccelerometer2 implements SensorEventListener{
 	public List<AccelerometerData> getActivities(){
 		return activities;
 	}
+	
+	public void setActivities(List<AccelerometerData> activities){
+		this.activities = activities;
+	}
 
 	@Override
 	public void onAccuracyChanged(Sensor sensor, int accuracy) {

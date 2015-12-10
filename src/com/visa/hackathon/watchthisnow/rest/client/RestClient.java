@@ -37,6 +37,12 @@ public class RestClient {
 		} catch (JSONException e) {
 			Log.e(this.getClass().getName(), "Found error in endTimeStamp " + e);
 		}
+
+		try {
+			json.put("activeStatus", activity.getActiveStatus());
+		} catch (JSONException e) {
+			Log.e(this.getClass().getName(), "Found error in activeStatus " + e);
+		}
 		try {
 			if (activity.getData() != null) {
 				JSONArray array = new JSONArray();
@@ -78,12 +84,7 @@ public class RestClient {
 		} catch (IOException e) {
 			Log.e(this.getClass().getName(), "" + e);
 			output.append("" + e.getMessage());
-		} finally{
-			if (client != null && client.getConnectionManager() != null){
-				client.getConnectionManager().shutdown();
-			}
-		}
-		
+		} 
 		return output.toString();
 	}
 

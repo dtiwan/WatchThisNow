@@ -20,7 +20,6 @@ public class SampleAccelerometer implements Runnable{
 	
 	private Context mContext;
 	
-	private int currIndx = 0;
 	private RestClient restClient = new RestClient();
 	
 	public SampleAccelerometer(Context context) {
@@ -43,22 +42,27 @@ public class SampleAccelerometer implements Runnable{
 				Log.d(this.getClass().getName(), "Got interrupted["+e+"]");
 			}
 			List<AccelerometerData> activities = meter.getActivities();
-			if((activities.size() - 1) < currIndx){
+			meter.setActivities(new ArrayList<AccelerometerData>());
+			
+			Log.d(this.getClass().getName(), "Got activiteis ["+activities+"]");
+			if((activities.isEmpty())){
+				Log.d(this.getClass().getName(), "Got size ["+activities.size()+"] ");
 				//No activities happened in last 10 seconds.
 				Activity activity = new Activity();
 				activity.setStartTimeStamp(""+System.currentTimeMillis());
 				activity.setEndTimeStamp(""+System.currentTimeMillis());
-				restClient.sendActivity(activity);
+				activity.setActiveStatus("inactive");
+				String restResponse = restClient.sendActivity(activity);
+				Log.d(this.getClass().getName(), "Got response ["+restResponse+"]");
 				break;
 			}
-			List<AccelerometerData> tempList = new ArrayList<AccelerometerData>();
-			tempList.addAll(activities.subList(currIndx, activities.size() - 1));
 			Activity activity = new Activity();
-			activity.setStartTimeStamp(tempList.get(0).getTimeStamp());
-			activity.setEndTimeStamp(tempList.get(tempList.size()-1).getTimeStamp());
-			activity.setData(tempList);
-			restClient.sendActivity(activity);
-			currIndx = activities.size() - 1;
+			activity.setStartTimeStamp(activities.get(0).getTimeStamp());
+			activity.setEndTimeStamp(activities.get(activities.size() - 1).getTimeStamp());
+			activity.setActiveStatus("active");
+			activity.setData(activities);
+			String restResponse = restClient.sendActivity(activity);
+			Log.d(this.getClass().getName(), "Got response [" + restResponse + "]");
 		}
 	}
 	
