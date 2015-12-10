@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="btn_rest">Rest Client</string>
+    <string name="app_name">WatchThisNow</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="btn_exercise">Exercise</string>
+    <string name="action_settings">Settings</string>
+	<string name="Home">Home</string>
+	<string name="Sensor">Sensor</string>
+	
+</resources>
